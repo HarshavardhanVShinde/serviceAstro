@@ -1,0 +1,81 @@
+---
+import { Facebook, Twitter, Instagram, Linkedin, ArrowRight, ArrowUpRight } from 'lucide-react';
+---
+
+<footer class="bg-dark-bg text-white border-t border-white/5 relative overflow-hidden">
+  
+  <!-- Large Typographic Background -->
+  <div class="absolute -bottom-20 left-0 w-full pointer-events-none opacity-[0.03] select-none">
+    <span class="text-[20vw] font-bold leading-none tracking-tighter text-white">VELITH</span>
+  </div>
+
+  <div class="container mx-auto px-6 pt-24 pb-12 relative z-10">
+    
+    <!-- Top Callout -->
+    <div class="flex flex-col md:flex-row justify-between items-start mb-20">
+        <div class="max-w-2xl" data-aos="fade-right">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+                Let’s create something <br/>
+                <span class="text-gradient">extraordinary.</span>
+            </h2>
+            <p class="text-xl text-gray-400 mb-8 max-w-lg">
+                We are currently accepting new projects. Get in touch to discuss how we can help your business grow.
+            </p>
+            <a href="/contact" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-dark-bg font-bold text-lg hover:bg-gray-200 transition-all transform hover:-translate-y-1">
+                Start a Conversation
+                <ArrowRight className="w-5 h-5" />
+            </a>
+        </div>
+
+        <div class="mt-12 md:mt-0 flex gap-4" data-aos="fade-left">
+            <a href="#" class="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-dark-bg transition-all duration-300 hover:scale-110 group">
+                <Instagram className="w-6 h-6" />
+            </a>
+            <a href="#" class="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-dark-bg transition-all duration-300 hover:scale-110 group">
+                <Linkedin className="w-6 h-6" />
+            </a>
+             <a href="#" class="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-dark-bg transition-all duration-300 hover:scale-110 group">
+                <Twitter className="w-6 h-6" />
+            </a>
+        </div>
+    </div>
+
+    <hr class="border-white/10 mb-16" />
+
+    <!-- Links Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      
+      <div class="col-span-1 md:col-span-2">
+        <a href="/" class="text-2xl font-bold font-sans tracking-tight mb-6 block">Velith Digital.</a>
+        <p class="text-gray-500 max-w-sm">
+            Crafting digital masterpieces. From concept to code, we bring your vision to life with precision and passion.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-bold uppercase tracking-widest text-gray-500 mb-6">Sitemap</h4>
+        <ul class="space-y-4 font-medium">
+          <li><a href="/services" class="hover:text-primary transition-colors flex items-center justify-between group">Services <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" /></a></li>
+          <li><a href="/portfolio" class="hover:text-primary transition-colors flex items-center justify-between group">Portfolio <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" /></a></li>
+          <li><a href="/about" class="hover:text-primary transition-colors flex items-center justify-between group">About Us <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" /></a></li>
+          <li><a href="/contact" class="hover:text-primary transition-colors flex items-center justify-between group">Contact <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" /></a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-bold uppercase tracking-widest text-gray-500 mb-6">Legal</h4>
+        <ul class="space-y-4 text-gray-400">
+          <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
+      <p>&copy; 2026 Velith Digital Inc.</p>
+      <p class="mt-2 md:mt-0">Designed & Built with <span class="text-red-500">♥</span></p>
+    </div>
+  </div>
+</footer>

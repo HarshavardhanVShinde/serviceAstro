@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { ExternalLink } from 'lucide-react';
+
+const projects = [
+  {
+    title: 'Aura Elixir Perfumes',
+    category: 'E-Commerce',
+    image: 'https://images.unsplash.com/photo-1595425235481-1c9f80214876?q=80&w=2070&auto=format&fit=crop',
+    description: 'A premium perfume e-commerce experience built for a luxury fragrance brand.',
+    tags: ['Next.js', 'React', 'Tailwind'],
+    link: 'https://www.auraelixir.co.in/'
+  },
+  {
+    title: 'InterviewKit',
+    category: 'EdTech Platform',
+    image: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=2070&auto=format&fit=crop',
+    description: 'Comprehensive interview preparation platform with online tools and educational blogs.',
+    tags: ['Next.js', 'React', 'Web Tools'],
+    link: 'https://www.interviewkit.org/'
+  },
+  {
+    title: 'Arohi Rhythms',
+    category: 'Music Academy',
+    image: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=2070&auto=format&fit=crop',
+    description: 'A dedicated website for a music academy, showcasing courses and rhythmical heritage.',
+    tags: ['Next.js', 'React', 'Education'],
+    link: 'https://arohirhythms.in/'
+  }
+];
+---
+
+<Layout title="Portfolio | Velith Digital">
+  <Navbar />
+  <main class="pt-20">
+    <section class="bg-dark-bg text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-5xl font-bold mb-6" data-aos="fade-up">Selected Works</h1>
+            <p class="text-xl text-gray-400" data-aos="fade-up" data-aos-delay="100">
+                A showcase of our best projects and digital transformations.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {projects.map((project, index) => (
+                    <div class="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay={index * 100}>
+                        <div class="aspect-video overflow-hidden">
+                            <img src={project.image} alt={project.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        </div>
+                        <div class="p-8">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <span class="text-sm font-semibold text-primary mb-2 block uppercase tracking-wider">{project.category}</span>
+                                    <h3 class="text-2xl font-bold text-gray-900 group-hover:text-primary transition-colors">{project.title}</h3>
+                                </div>
+                                <a href={project.link} target="_blank" rel="noopener noreferrer" class="p-2 rounded-full bg-gray-100 hover:bg-primary hover:text-white transition-colors">
+                                    <ExternalLink className="w-5 h-5" />
+                                </a>
+                            </div>
+                            <p class="text-gray-600 mb-6 line-clamp-2">{project.description}</p>
+                            <div class="flex flex-wrap gap-2">
+                                {project.tags.map(tag => (
+                                    <span class="px-3 py-1 rounded-full bg-gray-100 text-sm font-medium text-gray-600">
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
