@@ -1,74 +1,139 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
-import Stats from '../components/Stats.astro';
-import TechSlider from '../components/TechSlider.astro';
-import Testimonials from '../components/Testimonials.astro';
-import Footer from '../components/Footer.astro';
-import { ArrowRight, Code, Palette, Smartphone } from 'lucide-react';
+import Section from '../components/ui/Section.astro';
+import Button from '../components/ui/Button';
+import ServicesGrid from '../components/ServicesGrid';
+import { Bot, Code2, Smartphone, Terminal, Cpu, Globe, ArrowRight } from 'lucide-react';
 
-const featuredServices = [
-  { title: 'Web Development', icon: Code, desc: 'High-performance websites.' },
-  { title: 'UI/UX Design', icon: Palette, desc: 'User-centric interfaces.' },
-  { title: 'App Development', icon: Smartphone, desc: 'Native & cross-platform apps.' },
+const services = [
+  { 
+    title: 'Custom Software', 
+    desc: 'Scalable, enterprise-grade software built to your exact specifications.',
+    icon: Terminal
+  },
+  { 
+    title: 'AI Integration', 
+    desc: 'Leverage the power of LLMs and Machine Learning to automate workflows.',
+    icon: Bot
+  },
+  { 
+    title: 'Web Applications', 
+    desc: 'Modern, high-performance web apps using React, Astro, and Next.js.',
+    icon: Code2
+  },
+  { 
+    title: 'Mobile Development', 
+    desc: 'Native and cross-platform mobile apps that delight users.',
+    icon: Smartphone
+  },
+  { 
+    title: 'Legacy Modernization', 
+    desc: 'Transform outdated systems into modern cloud-native architectures.',
+    icon: Cpu
+  },
+  { 
+    title: 'SaaS Platforms', 
+    desc: 'End-to-end SaaS development from MVP to global scale.',
+    icon: Globe
+  }
 ];
 ---
 
-<Layout title="Velith Digital | Future-Proof Digital Solutions">
-  <Navbar />
-  <main>
-    <Hero />
-    <Stats />
-    
-    <!-- Service Teaser -->
-    <section class="py-24 bg-gray-50">
-      <div class="container mx-auto px-6">
-        <div class="md:flex justify-between items-end mb-12">
-            <div data-aos="fade-right">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">What We Do</h2>
-                <p class="text-xl text-gray-600 max-w-lg">We combine creativity and technology to build digital products that matter.</p>
-            </div>
-            <div data-aos="fade-left" class="hidden md:block">
-                <a href="/services" class="text-primary font-bold flex items-center gap-2 hover:gap-3 transition-all">
-                    View All Services <ArrowRight className="w-5 h-5" />
-                </a>
-            </div>
+<Layout title="TechFirm | Code. Deploy. Transform.">
+  <Hero />
+  
+  <!-- Services Grid -->
+  <Section id="services" class="backdrop-blur-lg bg-black/30 border-t border-white/10">
+    <div class="container mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-20">
+        <h2 class="text-3xl md:text-5xl font-bold mb-6">Built for <span class="text-gradient">Impact</span></h2>
+        <p class="text-text-300 text-lg">
+          We deliver engineering excellence across the entire technology stack.
+        </p>
+      </div>
+
+      <ServicesGrid client:visible />
+      </div>
+    </div>
+  </Section>
+
+  <!-- AI Spotlight -->
+  <Section id="ai" class="relative overflow-hidden">
+    <!-- Abstract BG -->
+    <div class="absolute inset-0 bg-gradient-to-tr from-secondary-500/10 to-transparent pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="flex flex-col lg:flex-row items-center gap-16">
+        <div class="lg:w-1/2">
+           <div class="inline-block px-4 py-1 rounded-full border border-accent-400/30 bg-accent-400/10 text-accent-400 text-xs font-bold uppercase tracking-widest mb-6">
+             AI-Powered Future
+           </div>
+           <h2 class="text-4xl md:text-5xl font-bold mb-6">
+             Intelligent Solutions for <br />
+             <span class="text-gradient">Complex Problems</span>
+           </h2>
+           <p class="text-text-300 text-lg mb-8 leading-relaxed">
+             Go beyond simple automation. We integrate advanced AI models directly into your business logic, creating smarter, more adaptive software ecosystems.
+           </p>
+           
+           <div class="flex flex-col gap-4 mb-8">
+             {['Natural Language Processing', 'Predictive Analytics', 'Automated Customer Support'].map(item => (
+               <div class="flex items-center gap-3 text-text-100">
+                 <div class="w-1.5 h-1.5 rounded-full bg-accent-400 shadow-[0_0_10px_rgba(6,182,212,0.5)]"></div>
+                 {item}
+               </div>
+             ))}
+           </div>
+
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featuredServices.map((service, i) => (
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 hover:border-primary/20 group" data-aos="fade-up" data-aos-delay={i * 100}>
-                    <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
-                        <service.icon className="w-7 h-7" />
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">{service.title}</h3>
-                    <p class="text-gray-600">{service.desc}</p>
+        <div class="lg:w-1/2 relative">
+          <div class="glass-panel p-2 rounded-2xl border border-white/10 shadow-2xl relative z-10">
+             <div class="bg-black/40 backdrop-blur-md rounded-xl p-6 h-[400px] flex flex-col relative overflow-hidden">
+                <!-- Chat UI Mockup -->
+                <div class="border-b border-white/5 pb-4 mb-4 flex items-center justify-between">
+                   <span class="text-sm font-mono text-text-300">AI Assistant</span>
+                   <div class="flex gap-1.5">
+                     <span class="w-3 h-3 rounded-full bg-red-500/20"></span>
+                     <span class="w-3 h-3 rounded-full bg-yellow-500/20"></span>
+                     <span class="w-3 h-3 rounded-full bg-green-500/20"></span>
+                   </div>
                 </div>
-            ))}
-        </div>
-        
-        <div class="mt-12 text-center md:hidden">
-             <a href="/services" class="text-primary font-bold flex items-center justify-center gap-2">
-                View All Services <ArrowRight className="w-5 h-5" />
-            </a>
+                <div class="flex-1 space-y-4">
+                  <div class="bg-white/5 p-3 rounded-lg rounded-tl-none max-w-[80%] self-start">
+                     <p class="text-sm text-text-300">How can I optimize my billing workflow?</p>
+                  </div>
+                  <div class="bg-secondary-500/20 p-3 rounded-lg rounded-tr-none max-w-[80%] ml-auto border border-secondary-500/20">
+                     <p class="text-sm text-white">I can help you automate invoice generation using our custom ML model. It reduces manual entry by 95%.</p>
+                  </div>
+                   <div class="bg-white/5 p-3 rounded-lg rounded-tl-none max-w-[80%] self-start flex items-center gap-2">
+                     <span class="w-2 h-2 rounded-full bg-accent-400 animate-pulse"></span>
+                     <p class="text-sm text-text-300">Analyzing your data...</p>
+                  </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/5">
+                   <div class="h-10 bg-white/5 rounded-lg w-full animate-pulse"></div>
+                </div>
+             </div>
+          </div>
+          <!-- Decor elements -->
+          <div class="absolute -top-10 -right-10 w-32 h-32 bg-secondary-500/20 rounded-full blur-3xl"></div>
+          <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-accent-400/20 rounded-full blur-3xl"></div>
         </div>
       </div>
-    </section>
+    </div>
+  </Section>
 
-    <TechSlider />
-    <Testimonials />
-    
-    <!-- CTA Section -->
-     <section class="py-24 bg-dark-bg relative overflow-hidden">
-        <div class="absolute inset-0 bg-primary/20 blur-[100px] rounded-full pointer-events-none"></div>
-        <div class="container mx-auto px-6 relative z-10 text-center">
-            <h2 class="text-4xl md:text-5xl font-bold text-white mb-8" data-aos="fade-up">Ready to launch your next big thing?</h2>
-            <a href="/contact" class="inline-block px-10 py-5 rounded-full bg-white text-dark-bg font-bold text-xl hover:bg-gray-100 transition-colors shadow-2xl hover:scale-105 transform duration-300" data-aos="fade-up" data-aos-delay="100">
-                Let's Talk
-            </a>
-        </div>
-     </section>
-  </main>
-  <Footer />
+  <!-- CTA Banner -->
+  <Section class="py-32 relative text-center">
+     <div class="container mx-auto px-6 relative z-10">
+       <h2 class="text-4xl md:text-6xl font-bold mb-8">Ready to transform your business?</h2>
+       <div class="flex justify-center gap-4">
+         <Button href="/contact" size="lg">Get Started</Button>
+         <Button href="/portfolio" variant="secondary" size="lg">View Work</Button>
+       </div>
+     </div>
+     <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+  </Section>
 </Layout>

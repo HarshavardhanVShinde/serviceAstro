@@ -1,0 +1,142 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Section from '../../components/ui/Section.astro';
+import Button from '../../components/ui/Button';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
+
+export async function getStaticPaths() {
+  const services = [
+    { 
+      slug: 'custom-software', 
+      title: 'Custom Software Development',
+      desc: 'Tailor-made solutions that drive business efficiency and growth.',
+      features: ['Scalable Architecture', 'Cloud-Native', 'Enterprise Security'],
+      process: ['Discovery', 'Design', 'Development', 'Deployment']
+    },
+    { 
+      slug: 'ai-integration', 
+      title: 'AI Integration Services',
+      desc: 'Embedded AI models that automate workflows and enhance decision making.',
+      features: ['LLM Integration', 'Predictive ML', 'Computer Vision'],
+      process: ['Data Audit', 'Model Training', 'Integration', 'Optimization']
+    },
+    { 
+      slug: 'web-applications', 
+      title: 'Modern Web Applications',
+      desc: 'Fast, responsive, and SEO-optimized web apps built with modern frameworks.',
+      features: ['React/Next.js/Astro', 'PWA Support', 'High Performance'],
+      process: ['UX/UI Design', 'Frontend Dev', 'Backend Integ', 'Launch']
+    },
+    { 
+        slug: 'mobile-development',
+        title: 'Mobile App Development',
+        desc: 'Native and Cross-platform mobile applications.',
+        features: ['iOS & Android', 'React Native / Flutter', 'Offline First'],
+        process: ['Prototyping', 'Development', 'Testing', 'Store Submission']
+    },
+    { 
+        slug: 'legacy-modernization',
+        title: 'Legacy System Modernization',
+        desc: 'Upgrade your outdated software to modern tech stacks.',
+        features: ['Database Migration', 'Code Refactoring', 'Performance Fixes'],
+        process: ['Assessment', 'Strategy', 'Migration', 'Validation']
+    },
+    { 
+        slug: 'saas-platforms',
+        title: 'SaaS Platform Development',
+        desc: 'Build your next unicorn with our end-to-end SaaS development services.',
+        features: ['Multi-tenancy', 'Subscription Billing', 'Admin Portals'],
+        process: ['MVP Strategy', 'Core Build', 'Beta Launch', 'Scaling']
+    }
+  ];
+
+  return services.map(service => ({
+    params: { service: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+---
+
+<Layout title={`${service.title} | TechFirm`} description={service.desc}>
+  
+  <!-- Hero -->
+  <section class="relative pt-32 pb-20 bg-primary-900 overflow-hidden">
+     <div class="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
+     <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+     <div class="container mx-auto px-6 relative z-10">
+        <div class="inline-block px-4 py-1 rounded-full border border-secondary-500/30 bg-secondary-500/10 text-secondary-500 text-sm font-bold mb-6">
+            Services
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+            {service.title}
+        </h1>
+        <p class="text-xl text-text-300 max-w-2xl mb-10 leading-relaxed">
+            {service.desc}
+        </p>
+        <div class="flex flex-wrap gap-4">
+            <Button href="/contact" size="lg">Get Started</Button>
+            <Button href="#process" variant="outline" size="lg">How We Work</Button>
+        </div>
+     </div>
+  </section>
+
+  <!-- Features Grid -->
+  <Section class="bg-primary-900 border-t border-white/5">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {service.features.map(feature => (
+                <div class="p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-secondary-500/30 transition-colors">
+                    <CheckCircle2 className="w-8 h-8 text-accent-400 mb-4" />
+                    <h3 class="text-xl font-bold mb-2">{feature}</h3>
+                    <p class="text-sm text-text-300">
+                        Detailed attention to {feature.toLowerCase()} ensures your project success.
+                    </p>
+                </div>
+            ))}
+        </div>
+    </div>
+  </Section>
+
+  <!-- Process -->
+  <Section id="process" class="relative">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Process</h2>
+            <p class="text-text-300">A proven methodology for delivering excellence.</p>
+        </div>
+
+        <div class="relative">
+            <!-- Line -->
+            <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-secondary-500/0 via-secondary-500/50 to-secondary-500/0 -translate-y-1/2 z-0"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+                {service.process.map((step, index) => (
+                    <div class="relative group">
+                        <div class="w-10 h-10 rounded-full bg-primary-900 border-2 border-secondary-500 text-white flex items-center justify-center font-bold mx-auto mb-6 relative z-10 group-hover:bg-secondary-500 transition-colors">
+                            {index + 1}
+                        </div>
+                        <div class="text-center bg-white/5 backdrop-blur-md p-6 rounded-xl border border-white/5 group-hover:-translate-y-2 transition-transform duration-300">
+                            <h4 class="text-lg font-bold mb-2">{step}</h4>
+                            <p class="text-xs text-text-300">We ensure every step is perfect.</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+  </Section>
+
+  <!-- CTA -->
+  <Section class="bg-gradient-to-br from-secondary-500/20 to-primary-900 text-center">
+    <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold mb-6">Ready to build your {service.title.toLowerCase()}?</h2>
+        <Button href={`/contact?service=${service.slug}`} variant="primary" size="lg">
+            Discuss Your Project <ArrowRight className="w-5 h-5" />
+        </Button>
+    </div>
+  </Section>
+
+</Layout>

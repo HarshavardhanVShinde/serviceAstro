@@ -1,55 +1,65 @@
 ---
 import { Menu, X } from 'lucide-react';
+import Button from './ui/Button';
+import AnimatedLogo from './ui/AnimatedLogo';
 
 const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
   { name: 'Services', href: '/services' },
   { name: 'Portfolio', href: '/portfolio' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'About', href: '/about' },
+  { name: 'Blog', href: '/blog' },
 ];
 ---
 
-<header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 glass-nav shadow-sm" id="navbar">
-  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+<header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b border-white/5 bg-primary-900/80 backdrop-blur-md" id="navbar">
+  <div class="container mx-auto px-6 h-20 flex justify-between items-center">
     <!-- Logo -->
-    <a href="/" class="text-2xl font-bold tracking-tight z-50 relative">Velith.</a>
+    <a href="/" class="text-2xl font-bold tracking-tight z-50 relative flex items-center gap-2 group">
+      <AnimatedLogo client:load />
+    </a>
 
     <!-- Desktop Nav -->
     <nav class="hidden md:flex items-center space-x-8">
       {navLinks.map(link => (
-        <a href={link.href} class="text-gray-600 hover:text-primary font-medium transition-colors text-sm uppercase tracking-wide">
+        <a href={link.href} class="text-text-300 hover:text-accent-400 font-medium transition-colors text-sm uppercase tracking-wide relative group">
           {link.name}
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-400 transition-all duration-300 group-hover:w-full"></span>
         </a>
       ))}
-      <a href="/contact" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-semibold hover:shadow-lg hover:shadow-primary/30 transition-all transform hover:-translate-y-0.5 text-sm">
+      <Button href="/contact" variant="primary" size="sm">
         Start Project
-      </a>
+      </Button>
     </nav>
 
     <!-- Mobile Menu Button -->
-    <button id="menu-btn" class="md:hidden text-gray-800 focus:outline-none">
+    <button id="menu-btn" class="md:hidden text-text-100 hover:text-accent-400 transition-colors focus:outline-none" aria-label="Toggle menu">
       <Menu className="w-8 h-8" />
     </button>
   </div>
 
   <!-- Mobile Menu Overlay -->
-  <div id="mobile-menu" class="fixed top-0 left-0 w-screen h-screen bg-white z-[100] flex flex-col justify-start items-center pt-32 overflow-y-auto" data-open="false">
+  <div id="mobile-menu" class="fixed inset-0 bg-primary-900/95 backdrop-blur-xl z-40 flex flex-col justify-center items-center opacity-0 pointer-events-none transition-all duration-300">
     <!-- Close Button -->
-    <button id="close-menu-btn" class="absolute top-6 right-6 p-2 text-gray-900 hover:text-primary transition-colors bg-gray-100 rounded-full">
+    <button id="close-menu-btn" class="absolute top-6 right-6 p-2 text-text-100 hover:text-accent-400 transition-colors bg-white/5 rounded-full" aria-label="Close menu">
       <X className="w-8 h-8" />
     </button>
     
     <!-- Mobile Nav Links -->
-    <nav class="flex flex-col items-center space-y-6 w-full px-6 pb-12">
-      {navLinks.map(link => (
-        <a href={link.href} class="mobile-link text-3xl font-bold text-gray-900 hover:text-primary transition-colors py-2 border-b border-transparent hover:border-gray-100 w-full text-center">
+    <nav class="flex flex-col items-center space-y-8 w-full px-6">
+      {navLinks.map((link, index) => (
+        <a 
+          href={link.href} 
+          class="mobile-link text-3xl font-bold text-text-100 hover:text-accent-400 transition-all transform translate-y-4 opacity-0"
+          style={`transition-delay: ${index * 50}ms`}
+        >
           {link.name}
         </a>
       ))}
-      <a href="/contact" class="mt-8 px-10 py-4 rounded-full bg-primary text-white text-xl font-bold shadow-xl hover:bg-blue-600 transition-colors w-full text-center max-w-xs">
-        Start Project
-      </a>
+      <div class="translate-y-4 opacity-0 delay-300 mobile-cta">
+        <Button href="/contact" variant="primary" size="lg" className="mt-8 w-full max-w-xs shadow-xl">
+            Start Project
+        </Button>
+      </div>
     </nav>
   </div>
 </header>
@@ -59,12 +69,33 @@ const navLinks = [
   const closeMenuBtn = document.getElementById('close-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   const mobileLinks = document.querySelectorAll('.mobile-link');
+  const mobileCta = document.querySelector('.mobile-cta');
 
   function toggleMenu() {
-    const currentState = mobileMenu?.getAttribute('data-open');
-    const newState = currentState === 'true' ? 'false' : 'true';
-    mobileMenu?.setAttribute('data-open', newState);
-    document.body.classList.toggle('overflow-hidden');
+    if (!mobileMenu) return;
+    const isOpen = mobileMenu.classList.contains('pointer-events-auto');
+    
+    if (isOpen) {
+      mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+      mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+      mobileLinks.forEach(link => {
+        link.classList.remove('translate-y-0', 'opacity-100');
+        link.classList.add('translate-y-4', 'opacity-0');
+      });
+      mobileCta?.classList.remove('translate-y-0', 'opacity-100');
+      mobileCta?.classList.add('translate-y-4', 'opacity-0');
+      document.body.classList.remove('overflow-hidden');
+    } else {
+      mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+      mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+      mobileLinks.forEach(link => {
+        link.classList.add('translate-y-0', 'opacity-100');
+        link.classList.remove('translate-y-4', 'opacity-0');
+      });
+      mobileCta?.classList.add('translate-y-0', 'opacity-100');
+      mobileCta?.classList.remove('translate-y-4', 'opacity-0');
+      document.body.classList.add('overflow-hidden');
+    }
   }
 
   menuBtn?.addEventListener('click', toggleMenu);
@@ -74,17 +105,3 @@ const navLinks = [
     link.addEventListener('click', toggleMenu);
   });
 </script>
-
-<style>
-  #mobile-menu {
-    visibility: hidden;
-    transform: translateX(100%);
-    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 300ms;
-  }
-  
-  #mobile-menu[data-open="true"] {
-    visibility: visible;
-    transform: translateX(0);
-    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s;
-  }
-</style>

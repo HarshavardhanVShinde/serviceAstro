@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Section from '../../components/ui/Section.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
+}
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout title={`${post.data.title} | TechFirm Blog`} description={post.data.description}>
+	<article>
+        <!-- Article Header -->
+        <section class="relative pt-40 pb-20 overflow-hidden z-10">
+             <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/30 z-10"></div>
+             
+             <div class="container mx-auto px-6 relative z-20 text-center max-w-4xl mx-auto">
+                 <div class="flex justify-center gap-2 mb-6">
+                    {post.data.tags.map(tag => (
+                        <span class="text-xs font-bold text-accent-400 uppercase tracking-widest bg-black/50 backdrop-blur-md px-2 py-1 rounded">{tag}</span>
+                    ))}
+                 </div>
+                 <h1 class="text-4xl md:text-6xl font-bold mb-6 drop-shadow-2xl text-white">{post.data.title}</h1>
+                 <div class="flex items-center justify-center gap-4 text-sm text-text-100 font-medium bg-black/30 inline-flex px-4 py-2 rounded-full backdrop-blur-sm mx-auto">
+                     <span class="flex items-center gap-2">
+                         <div class="w-8 h-8 rounded-full bg-secondary-500/20 flex items-center justify-center text-secondary-500">
+                             {post.data.author.charAt(0)}
+                         </div>
+                         {post.data.author}
+                     </span>
+                     <span>•</span>
+                     <time>{post.data.pubDate.toLocaleDateString()}</time>
+                 </div>
+             </div>
+        </section>
+
+        <!-- Content -->
+        <Section class="relative z-10 pb-32">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="glass-panel p-8 md:p-12 rounded-3xl bg-black/40 backdrop-blur-xl border border-white/10 shadow-2xl">
+                    <div class="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-text-300 prose-a:text-secondary-500 hover:prose-a:text-secondary-400 prose-img:rounded-xl prose-strong:text-white">
+                        <Content />
+                    </div>
+                </div>
+            </div>
+        </Section>
+	</article>
+</Layout>

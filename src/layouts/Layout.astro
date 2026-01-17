@@ -1,45 +1,48 @@
 ---
+import { ClientRouter } from 'astro:transitions';
+import SpaceBackground from '../components/backgrounds/SpaceBackground';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import '@fontsource/inter';
+import '@fontsource/space-grotesk';
+import '@fontsource/jetbrains-mono';
 
 interface Props {
 	title: string;
 	description?: string;
 }
 
-const { title, description = "Velith Digital - Innovating the Future of Web & Branding." } = Astro.props;
+const { title = "TechFirm | Deep Space Intelligence", description = "High-performance software & AI development firm." } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		
-		<!-- Google Fonts: Inter -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-		
-		<!-- AOS CSS -->
-		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
 		<title>{title}</title>
+		<ClientRouter />
 	</head>
-	<body class="antialiased">
-		<slot />
-		
-		<!-- AOS Script -->
-		<script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-		<script is:inline>
-			AOS.init({
-				duration: 1000, // Slower duration
-				once: true,
-				offset: 100,
-                easing: 'ease-out-cubic', // Smoother easing
-			});
-		</script>
+	<body class="bg-primary-900 text-text-100 font-sans antialiased overflow-x-hidden selection:bg-accent-400/30 selection:text-white relative">
+        <!-- Three.js Background -->
+        <SpaceBackground client:only="react" />
+        
+        <div class="relative z-10">
+            <Navbar />
+            
+            <!-- Main Content -->
+            <main>
+                <slot />
+            </main>
+
+            <Footer />
+        </div>
 	</body>
 </html>

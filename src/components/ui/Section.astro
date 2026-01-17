@@ -1,0 +1,14 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+  className?: string; // Support both for flexibility
+}
+
+const { id, class: classNameAstro, className: classNameReact } = Astro.props;
+const finalClass = classNameAstro || classNameReact || '';
+---
+
+<section id={id} class:list={["py-20 md:py-32 relative", finalClass]}>
+  <slot />
+</section>
