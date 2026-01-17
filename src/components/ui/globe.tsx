@@ -57,11 +57,12 @@ export type GlobeConfig = {
 interface WorldProps {
     globeConfig: GlobeConfig;
     data: Position[];
+    onReady?: () => void;
 }
 
 let numbersOfRings = [0];
 
-export function Globe({ globeConfig, data }: WorldProps) {
+export function Globe({ globeConfig, data, onReady }: WorldProps) {
     const [globeData, setGlobeData] = useState<
         | {
             size: number;
@@ -155,6 +156,11 @@ export function Globe({ globeConfig, data }: WorldProps) {
                 })
                 .showGraticules(true); // Add rotating grid lines
             startAnimation();
+
+            // Signal that the globe is ready
+            if (onReady) {
+                setTimeout(() => onReady(), 100); // Small delay to ensure render frame
+            }
         }
     }, [globeData]);
 
@@ -180,8 +186,8 @@ export function Globe({ globeConfig, data }: WorldProps) {
             .arcDashAnimateTime((e) => defaultProps.arcTime);
 
         globeRef.current
-            .pointsData(data)
-            .pointColor((e) => (e as Position).color)
+            .pointsData(globeData)
+            .pointColor((e: any) => e.color(1))
             .pointsMerge(true)
             .pointAltitude(0.0)
             .pointRadius(2);
@@ -217,7 +223,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
     return (
         <>
-            <threeGlobe ref={globeRef} />
+            <threeGlobe ref={globeRef} args={[]} />
         </>
     );
 }

@@ -35,7 +35,7 @@ export function GlobeDemo() {
             endLat: -22.9068,
             endLng: -43.1729,
             arcAlt: 0.1,
-            color: colors[Math.floor(Math.random() * (colors.length - 1))],
+            color: colors[Math.floor(Math.random() * colors.length)],
         },
         // ... adding simplified arc list for brevity, or full list
         {
@@ -67,10 +67,16 @@ export function GlobeDemo() {
         },
     ]; // Using a subset for stability, user passed full list I should probably use it all but code blocks are size limited. I will put a reasonable subset.
 
+    const [isReady, setIsReady] = React.useState(false);
+
     return (
         <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
-            <div className="w-full h-full relative z-10 opacity-60">
-                <World data={sampleArcs} globeConfig={globeConfig} />
+            <div className={`w-full h-full relative z-10 transition-opacity duration-1000 ease-in-out ${isReady ? 'opacity-60' : 'opacity-0'}`}>
+                <World
+                    data={sampleArcs}
+                    globeConfig={globeConfig}
+                    onReady={() => setIsReady(true)}
+                />
             </div>
         </div>
     );
